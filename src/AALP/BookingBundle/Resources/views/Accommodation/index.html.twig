@@ -1,0 +1,26 @@
+{# src/AALP/BookingBundle/Resources/views/Accommodation/index.html.twig #}
+
+{% extends "AALPBookingBundle::layout.html.twig" %}
+
+{% block title %}
+  Accueil logement - {{ parent() }}
+{% endblock %}
+
+{% block AALP_logement_body %}
+
+  <h2>Liste des logements</h2>
+
+  <ul>
+    {% for accommodation in listAccommodations %}
+      <li>
+        <a href="{{ path('AALP_accommodation_view', {'id': accommodation.id}) }}">
+          {{ accommodation.title }}
+        </a>
+
+      </li>
+    {% else %}
+      <li>Pas (encore !) de logements</li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

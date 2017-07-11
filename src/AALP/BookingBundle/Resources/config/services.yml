@@ -1,0 +1,7 @@
+services:
+#    aalp_booking.example:
+#        class: AALP\BookingBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    AALP_booking.antispam:
+        class: AALP\BookingBundle\AntiSpam\AntiSpam
+        arguments: ["@mailer", "%locale%", 10]

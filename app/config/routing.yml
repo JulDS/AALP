@@ -1,0 +1,4 @@
+# app/config/routing.yml
+
+oc_platform:
+    resource: "@AALPBookingBundle/Resources/config/routing.yml"

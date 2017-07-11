@@ -1,0 +1,33 @@
+AALP_accommodation:
+    path:      /accommodation/{page}
+    defaults: 
+        _controller: AALPBookingBundle:Accommodation:index
+        page: 1
+    requirements:
+        page: \d*
+    
+AALP_accommodation_view:
+    path:      /accommodation/{id}
+    defaults:
+        _controller: AALPBookingBundle:Accommodation:view
+    requirements:
+        id: \d+
+        
+AALP_accommodation_add:
+    path:      /accommodation/add
+    defaults:
+        _controller: AALPBookingBundle:Accommodation:add
+
+AALP_accommodation_edit:
+    path:      /accommodation/edit/{id}
+    defaults:
+        _controller: AALPBookingBundle:Accommodation:edit
+    requirements:
+        id: \d+
+
+AALP_accommodation_delete:
+    path:      /accommodation/delete/{id}
+    defaults:
+        _controller: AALPBookingBundle:Accommodation:delete
+    requirements: 
+        id: \d+
