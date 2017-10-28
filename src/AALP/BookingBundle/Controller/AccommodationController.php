@@ -113,7 +113,7 @@ class AccommodationController extends Controller
 	
     public function deleteAction($id, Request $request)
     {
-     /*   $accommodations = new Accommodation;
+        $accommodations = new Accommodation;
 		$accommodation = $this->getDoctrine()
 			->getManager()
             ->getRepository('AALPBookingBundle:Accommodation')
@@ -127,18 +127,19 @@ class AccommodationController extends Controller
     $form = $this->get('form.factory')->create();
 
     if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-      $em->remove($accommodation);
+      $em = $this->getDoctrine()->getManager();
+	  $em->remove($accommodation);
       $em->flush();
 
       $request->getSession()->getFlashBag()->add('notice', "Le logement a bien été supprimé.");
 
-      return $this->redirectToRoute('AALP_accommodation_view');
+      return $this->redirectToRoute('AALP_accommodation');
     }
     
     return $this->render('AALPBookingBundle:Accommodation:delete.html.twig', array(
-      'advert' => $advert,
+      'accommodation' => $accommodation,
       'form'   => $form->createView(),
-    ));*/
+    ));
     }
 	
 }

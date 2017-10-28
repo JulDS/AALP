@@ -10,22 +10,50 @@
 
   <h2>Liste des logements</h2>
 
-  <ul>
-    {% for accommodation in listAccommodations %}
-      <li>
-        <a href="{{ path('AALP_accommodation_view', {'id': accommodation.id}) }}">
-          {{ accommodation.id }}
-        </a>
-		{{ accommodation.reference }}
-		<a href="{{ path('AALP_accommodation_edit', {'id': accommodation.id}) }}">
-          Modifier
-        </a>
-		
+  <table class="table">
+	<thead>
+		<tr>
+			<th>Id</th>
+			<th>Référence</th>
+			<th>Nom du logement</th>
+			<th>Description</th>
+			<th>Nombre de pièces</th>
+			<th>Version</th>
+			<th>Date de début</th>
+			<th>Date de fin</th>
+			<th>Site</th>
+			<th>Parent</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+  
+	<tbody>
+	{% for accommodation in listAccommodations %}
+      <tr>
+		<td><a href="{{ path('AALP_accommodation_view', {'id': accommodation.id}) }}">{{ accommodation.id }}</a></td>
+		<td>{{ accommodation.reference }}</td>
+		<td>{{ accommodation.name }}</td>
+		<td>{{ accommodation.description }}</td>
+		<td>{{ accommodation.room }}</td>
+		<td>{{ accommodation.version }}</td>
+		<td>{{ accommodation.start|date('d/m/Y') }}</td>
+		<td>{{ accommodation.end|date('d/m/Y') }}</td>
+		<td>{{ accommodation.site }}</td>
+		<td>{{ accommodation.parent }}</td>
+		<td>
+			<a href="{{ path('AALP_accommodation_edit', {'id': accommodation.id}) }}">Modifier</a>
+			|
+			<a href="{{ path('AALP_accommodation_delete', {'id': accommodation.id}) }}">Supprimer</a>
+		</td>
 
-      </li>
+      </tr>
     {% else %}
       <li>Pas (encore !) de logements</li>
     {% endfor %}
+	</tbody>
+  </table>
+  <ul>
+    
   </ul>
 
 {% endblock %}
