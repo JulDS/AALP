@@ -1,0 +1,526 @@
+<?php
+
+namespace AALP\BookingBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Accommodation
+ *
+ * @ORM\Table(name="accommodation")
+ * @ORM\Entity(repositoryClass="AALP\BookingBundle\Repository\AccommodationRepository")
+ */
+class Accommodation
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="reference", type="string", length=255)
+     */
+    private $reference;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="parent", type="boolean")
+     */
+    private $parent;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="bookable", type="boolean")
+     */
+    private $bookable = true;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text")
+     */
+    private $description;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="room", type="integer")
+     */
+    private $room;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="version", type="integer")
+     */
+    private $version;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="start", type="date")
+     */
+    private $start;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="end", type="date")
+     */
+    private $end;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="price", type="integer")
+     */
+    private $price;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="state", type="integer")
+     */
+    private $state;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="simplebed", type="integer")
+     */
+    private $simplebed;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="doublebed", type="integer")
+     */
+    private $doublebed;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="creation", type="date")
+     */
+    private $creation;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="site", type="integer")
+     */
+    private $site;
+  
+    /**
+     * @ORM\OneToMany(targetEntity="AALP\BookingBundle\Entity\Image", mappedBy="accommodation")
+     */
+    private $images; 
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set reference
+     *
+     * @param string $reference
+     *
+     * @return Accommodation
+     */
+    public function setReference($reference)
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+    /**
+     * Get reference
+     *
+     * @return string
+     */
+    public function getReference()
+    {
+        return $this->reference;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Accommodation
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param boolean $parent
+     *
+     * @return Accommodation
+     */
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return bool
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Set bookable
+     *
+     * @param boolean $bookable
+     *
+     * @return Accommodation
+     */
+    public function setBookable($bookable)
+    {
+        $this->bookable = $bookable;
+
+        return $this;
+    }
+
+    /**
+     * Get bookable
+     *
+     * @return bool
+     */
+    public function getBookable()
+    {
+        return $this->bookable;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Accommodation
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set room
+     *
+     * @param integer $room
+     *
+     * @return Accommodation
+     */
+    public function setRoom($room)
+    {
+        $this->room = $room;
+
+        return $this;
+    }
+
+    /**
+     * Get room
+     *
+     * @return int
+     */
+    public function getRoom()
+    {
+        return $this->room;
+    }
+
+    /**
+     * Set version
+     *
+     * @param integer $version
+     *
+     * @return Accommodation
+     */
+    public function setVersion($version)
+    {
+        $this->version = $version;
+
+        return $this;
+    }
+
+    /**
+     * Get version
+     *
+     * @return int
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
+     * Set start
+     *
+     * @param \DateTime $start
+     *
+     * @return Accommodation
+     */
+    public function setStart($start)
+    {
+        $this->start = $start;
+
+        return $this;
+    }
+
+    /**
+     * Get start
+     *
+     * @return \DateTime
+     */
+    public function getStart()
+    {
+        return $this->start;
+    }
+
+    /**
+     * Set end
+     *
+     * @param \DateTime $end
+     *
+     * @return Accommodation
+     */
+    public function setEnd($end)
+    {
+        $this->end = $end;
+
+        return $this;
+    }
+
+    /**
+     * Get end
+     *
+     * @return \DateTime
+     */
+    public function getEnd()
+    {
+        return $this->end;
+    }
+
+    /**
+     * Set price
+     *
+     * @param integer $price
+     *
+     * @return Accommodation
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return int
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set state
+     *
+     * @param integer $state
+     *
+     * @return Accommodation
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * Get state
+     *
+     * @return int
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * Set simplebed
+     *
+     * @param integer $simplebed
+     *
+     * @return Accommodation
+     */
+    public function setSimplebed($simplebed)
+    {
+        $this->simplebed = $simplebed;
+
+        return $this;
+    }
+
+    /**
+     * Get simplebed
+     *
+     * @return int
+     */
+    public function getSimplebed()
+    {
+        return $this->simplebed;
+    }
+
+    /**
+     * Set doublebed
+     *
+     * @param integer $doublebed
+     *
+     * @return Accommodation
+     */
+    public function setDoublebed($doublebed)
+    {
+        $this->doublebed = $doublebed;
+
+        return $this;
+    }
+
+    /**
+     * Get doublebed
+     *
+     * @return int
+     */
+    public function getDoublebed()
+    {
+        return $this->doublebed;
+    }
+
+    /**
+     * Set creation
+     *
+     * @param \DateTime $creation
+     *
+     * @return Accommodation
+     */
+    public function setCreation($creation)
+    {
+        $this->creation = $creation;
+
+        return $this;
+    }
+
+    /**
+     * Get creation
+     *
+     * @return \DateTime
+     */
+    public function getCreation()
+    {
+        return $this->creation;
+    }
+
+    /**
+     * Set site
+     *
+     * @param integer $site
+     *
+     * @return Accommodation
+     */
+    public function setSite($site)
+    {
+        $this->site = $site;
+
+        return $this;
+    }
+
+    /**
+     * Get site
+     *
+     * @return int
+     */
+    public function getSite()
+    {
+        return $this->site;
+    }
+    
+    public function __construct()
+    {
+        $this->creation = new \Datetime();
+    }
+
+  /**
+   * @param Image $image
+   */
+  public function addImage(Image $image)
+  {
+    $this->images[] = $image;
+
+    $image->setAccommodation($this);
+  }
+  /**
+   * @param Application $application
+   */
+  public function removeImage(Image $image)
+  {
+    $this->images->removeElement($image);
+  }
+}
+

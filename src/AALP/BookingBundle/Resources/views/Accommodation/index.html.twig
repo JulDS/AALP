@@ -6,7 +6,7 @@
   Accueil logement - {{ parent() }}
 {% endblock %}
 
-{% block AALP_logement_body %}
+{% block aalpbooking_body %}
 
   <h2>Liste des logements</h2>
 
@@ -14,8 +14,13 @@
     {% for accommodation in listAccommodations %}
       <li>
         <a href="{{ path('AALP_accommodation_view', {'id': accommodation.id}) }}">
-          {{ accommodation.title }}
+          {{ accommodation.id }}
         </a>
+		{{ accommodation.reference }}
+		<a href="{{ path('AALP_accommodation_edit', {'id': accommodation.id}) }}">
+          Modifier
+        </a>
+		
 
       </li>
     {% else %}

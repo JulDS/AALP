@@ -1,0 +1,16 @@
+{# src/AALP/BookingBundle/Resources/views/Accommodation/add.html.twig #}
+
+{% extends "AALPBookingBundle::layout.html.twig" %}
+
+{% block aalpbooking_body %}
+
+  <h2>Ajouter un logement</h2>
+
+  {{ include("AALPBookingBundle:Accommodation:form.html.twig") }}
+
+  <p>
+    Attention : cette annonce sera ajoutée directement
+    sur la page d'accueil après validation du formulaire.
+  </p>
+
+{% endblock %}

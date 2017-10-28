@@ -1,11 +1,3 @@
-AALP_accommodation:
-    path:      /accommodation/{page}
-    defaults: 
-        _controller: AALPBookingBundle:Accommodation:index
-        page: 1
-    requirements:
-        page: \d*
-    
 AALP_accommodation_view:
     path:      /accommodation/{id}
     defaults:
@@ -31,3 +23,12 @@ AALP_accommodation_delete:
         _controller: AALPBookingBundle:Accommodation:delete
     requirements: 
         id: \d+
+
+AALP_accommodation:
+    path:      /accommodation/{page}
+    defaults: 
+        _controller: AALPBookingBundle:Accommodation:index
+        page: 1
+    requirements:
+        page: \d*
+    
