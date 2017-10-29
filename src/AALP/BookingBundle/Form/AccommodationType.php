@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 //use AALP\BookingBundle\Form\ImageType;
 //use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
+
 class AccommodationType extends AbstractType
 {
     /**
@@ -22,13 +23,33 @@ class AccommodationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('reference')->add('name')->add('parent')->add('bookable')->add('description')->add('room')->add('version')->add('start')->add('end')->add('price')->add('state')->add('simplebed')->add('doublebed')->add('creation')->add('site');
-        $builder->add('save', SubmitType::class);
-        //$builder->add('image', ImageType::class);
-        //$builder->add('images', CollectionType::class, array('entry_type'   => ImageType::class,'allow_add'    => true,'allow_delete' => true));
-    }
+        $builder
+			->add('reference')
+			->add('name')
+			->add('parent')
+			->add('bookable')
+			->add('description')
+			->add('room')
+			->add('version')
+			->add('start')
+			->add('end')
+			->add('price')
+			->add('state')
+			->add('simplebed')
+			->add('doublebed')
+			->add('creation')
+			->add('site')
+			
+			->add('images',CollectionType::class, array(
+			     'entry_type'=>ImageType::class,
+				 'allow_add'=>true,
+				 'allow_delete'=>true
+				 ))
+			
+			->add('save', SubmitType::class);
+	}
     
-    /**
+    /**	
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)

@@ -127,7 +127,7 @@ class Accommodation
     private $site;
   
     /**
-     * @ORM\OneToMany(targetEntity="AALP\BookingBundle\Entity\Image", mappedBy="accommodation")
+     * @ORM\OneToMany(targetEntity="AALP\BookingBundle\Entity\Image", mappedBy="accommodation", cascade={"persist","remove"})
      */
     private $images; 
 
@@ -519,7 +519,7 @@ class Accommodation
     $image->setAccommodation($this);
   }
   /**
-   * @param Application $application
+   * @param Application $image
    */
   public function removeImage(Image $image)
   {

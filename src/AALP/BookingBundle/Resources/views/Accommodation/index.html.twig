@@ -9,7 +9,12 @@
 {% block aalpbooking_body %}
 
   <h2>Liste des logements</h2>
-
+	<div>
+		{# On affiche tous les messages flash dont le nom est « notice » #}
+		{% for message in app.session.flashbag.get('notice') %}
+			<p>Message flash : {{ message }}</p>
+		{% endfor %}
+	</div>
   <table class="table">
 	<thead>
 		<tr>
@@ -40,6 +45,7 @@
 		<td>{{ accommodation.end|date('d/m/Y') }}</td>
 		<td>{{ accommodation.site }}</td>
 		<td>{{ accommodation.parent }}</td>
+
 		<td>
 			<a href="{{ path('AALP_accommodation_edit', {'id': accommodation.id}) }}">Modifier</a>
 			|

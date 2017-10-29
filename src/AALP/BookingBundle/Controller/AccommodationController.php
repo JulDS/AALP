@@ -42,8 +42,6 @@ class AccommodationController extends Controller
 		$accommodation->setSite(1);
         $form = $this->get('form.factory')->create(AccommodationType::class, $accommodation);
         
-
-	    // Si la requête est en POST
         if ($request->isMethod('POST')) {
 			$form->handleRequest($request);
 			
@@ -57,8 +55,8 @@ class AccommodationController extends Controller
 				return $this->redirectToRoute('AALP_accommodation_view', array('id' => $accommodation->getId()));
 			} 
 		}  
-		
-		return $this->render('AALPBookingBundle:Accommodation:add.html.twig', array('form' => $form->createView(),));
+		//	throw new NotFoundHttpException("step");	
+		return $this->render('AALPBookingBundle:Accommodation:add.html.twig', array('form' => $form->createView()));
 	}
 
     public function editAction($id, Request $request)
@@ -80,7 +78,7 @@ class AccommodationController extends Controller
 			// Inutile de persister ici, Doctrine connait déjà notre logement
 			$em = $this->getDoctrine()->getManager();
 			$em->flush();
-			$request->getSession()->getFlashBag()->add('notice', 'Logement bien modifiée.');
+			$request->getSession()->getFlashBag()->add('notice', 'Logement bien modifié.');
 			return $this->redirectToRoute('AALP_accommodation_view', array('id' => $accommodation->getId()));
 		}	
 		
