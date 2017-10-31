@@ -61,12 +61,9 @@ class AccommodationController extends Controller
 
     public function editAction($id, Request $request)
     {
-        $accommodations = new Accommodation;
-		$accommodation = $this->getDoctrine()
-			->getManager()
-            ->getRepository('AALPBookingBundle:Accommodation')
-            ->find($id)
-			;
+        
+		$em = $this->getDoctrine()->getManager();
+		$accommodation = $em->getRepository('AALPBookingBundle:Accommodation')->find($id);
         
 		if (null === $accommodation) {
           throw new NotFoundHttpException("Le logement d'id ".$id." n'existe pas.");
@@ -76,13 +73,14 @@ class AccommodationController extends Controller
         
 		if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
 			// Inutile de persister ici, Doctrine connait déjà notre logement
-			$em = $this->getDoctrine()->getManager();
+			//$em = $this->getDoctrine()->getManager();
+			$em->persist($accommodation);
 			$em->flush();
 			$request->getSession()->getFlashBag()->add('notice', 'Logement bien modifié.');
 			return $this->redirectToRoute('AALP_accommodation_view', array('id' => $accommodation->getId()));
 		}	
 		
-		return $this->render('AALPBookingBundle:Accommodation:edit.html.twig', array('form' => $form->createView(),));
+		return $this->render('AALPBookingBundle:Accommodation:edit.html.twig', array('form' => $form->createView()));
 	}
     
     public function indexAction()
