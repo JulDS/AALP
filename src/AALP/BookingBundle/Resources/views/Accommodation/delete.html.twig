@@ -1,0 +1,29 @@
+{# src/AALP/BookingBundle/Resources/views/Accommodation/delete.html.twig #}
+
+{% extends "AALPBookingBundle::layout.html.twig" %}
+
+{% block title %}
+  Accueil logement - {{ parent() }}
+{% endblock %}
+
+{% block aalpbooking_body %}
+
+  <h2>Supprimer un logement</h2>
+
+  <p>
+    Etes-vous certain de vouloir supprimer le logement "{{ accommodation.reference }}" ?
+  </p>
+
+  {# On met l'id du logement dans la route de l'action du formulaire #}
+  <form action="{{ path('AALP_accommodation_delete', {'id': accommodation.id}) }}" method="post">
+    <a href="{{ path('AALP_accommodation_view', {'id': accommodation.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour au détail du logement
+    </a>
+    {# Ici j'ai écrit le bouton de soumission à la main #}
+    <input type="submit" value="Supprimer" class="btn btn-danger" />
+    {# Ceci va générer le champ CSRF #}
+    {{ form_rest(form) }}
+  </form>
+
+{% endblock %}

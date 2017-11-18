@@ -42,38 +42,59 @@ class AccommodationController extends Controller
 		$accommodation->setSite(1);
         $form = $this->get('form.factory')->create(AccommodationType::class, $accommodation);
         
+        if ($request->isMethod('POST')) {
+			$form->handleRequest($request);
+			
+			if ($form->isValid()) {
+				$em = $this->getDoctrine()->getManager();
+				$em->persist($accommodation);
+				$em->flush();
+				
+				$request->getSession()->getFlashBag()->add('notice', 'Logement bien enregistré.');
+				
+				return $this->redirectToRoute('AALP_accommodation_view', array('id' => $accommodation->getId()));
+			} 
+		}  
+		//	throw new NotFoundHttpException("step");	
+		return $this->render('AALPBookingBundle:Accommodation:add.html.twig', array('form' => $form->createView()));
+	}
 
-	// Si la requête est en POST
-    if ($request->isMethod('POST')) {
-      // On fait le lien Requête <-> Formulaire
-      // À partir de maintenant, la variable $accommodation contient les valeurs entrées dans le formulaire par le visiteur
-
-	  $form->handleRequest($request);
-
-      // On vérifie que les valeurs entrées sont correctes
-      // (Nous verrons la validation des objets en détail dans le prochain chapitre)
-      if ($form->isValid()) {
-        // On enregistre notre objet $accommodation dans la base de données, par exemple
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($accommodation);
-        $em->flush();
-
-        $request->getSession()->getFlashBag()->add('notice', 'Logement bien enregistré.');
-
-        // On redirige vers la page de visualisation du logement nouvellement créé
-        return $this->redirectToRoute('AALP_accommodation_view', array('id' => $accommodation->getId()));
-      } 
-    }  
-
-    // À ce stade, le formulaire n'est pas valide car :
-    // - Soit la requête est de type GET, donc le visiteur vient d'arriver sur la page et veut voir le formulaire
-    // - Soit la requête est de type POST, mais le formulaire contient des valeurs invalides, donc on l'affiche de nouveau
-
-	return $this->render('AALPBookingBundle:Accommodation:add.html.twig', array('form' => $form->createView(),));
-  }
-
-      public function editAction($id, Request $request)
+    public function editAction($id, Request $request)
+    {
+        
+		$em = $this->getDoctrine()->getManager();
+		$accommodation = $em->getRepository('AALPBookingBundle:Accommodation')->find($id);
+        
+		if (null === $accommodation) {
+          throw new NotFoundHttpException("Le logement d'id ".$id." n'existe pas.");
+        }
+        
+		$form = $this->get('form.factory')->create(AccommodationType::class, $accommodation);	
+        
+		if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+			// Inutile de persister ici, Doctrine connait déjà notre logement
+			//$em = $this->getDoctrine()->getManager();
+			$em->persist($accommodation);
+			$em->flush();
+			$request->getSession()->getFlashBag()->add('notice', 'Logement bien modifié.');
+			return $this->redirectToRoute('AALP_accommodation_view', array('id' => $accommodation->getId()));
+		}	
+		
+		return $this->render('AALPBookingBundle:Accommodation:edit.html.twig', array('form' => $form->createView()));
+	}
+    
+    public function indexAction()
+    {
+        $listAccommodations = $this->getDoctrine()
+			->getManager()
+            ->getRepository('AALPBookingBundle:Accommodation')
+            ->getAccommodations()
+			;
+		
+		return $this->render('AALPBookingBundle:Accommodation:index.html.twig', array('listAccommodations' => $listAccommodations));
+	}
+	
+    public function deleteAction($id, Request $request)
     {
         $accommodations = new Accommodation;
 		$accommodation = $this->getDoctrine()
@@ -84,61 +105,24 @@ class AccommodationController extends Controller
         if (null === $accommodation) {
           throw new NotFoundHttpException("Le logement d'id ".$id." n'existe pas.");
         }
-        $form = $this->get('form.factory')->create(AccommodationType::class, $accommodation);	
+		// On crée un formulaire vide, qui ne contiendra que le champ CSRF
+		// Cela permet de protéger la suppression d'annonce contre cette faille
+		$form = $this->get('form.factory')->create();
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-      // Inutile de persister ici, Doctrine connait déjà notre logement
-        $em = $this->getDoctrine()->getManager();
-		$em->flush();
-        $request->getSession()->getFlashBag()->add('notice', 'Logement bien modifiée.');
+		if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+		  $em = $this->getDoctrine()->getManager();
+		  $em->remove($accommodation);
+		  $em->flush();
 
-      return $this->redirectToRoute('AALP_accommodation_view', array('id' => $accommodation->getId()));
-    }
+		  $request->getSession()->getFlashBag()->add('notice', "Le logement a bien été supprimé.");
 
-	
-		return $this->render('AALPBookingBundle:Accommodation:edit.html.twig', array('form' => $form->createView(),));
-	}
+		  return $this->redirectToRoute('AALP_accommodation');
+		}
     
-	
-    public function indexAction()
-    {
-        $listAccommodations = $this->getDoctrine()
-			->getManager()
-            ->getRepository('AALPBookingBundle:Accommodation')
-            ->getAccommodations()
-			;
-
-		return $this->render('AALPBookingBundle:Accommodation:index.html.twig', array('listAccommodations' => $listAccommodations));
-	}
-	
-    public function deleteAction($id, Request $request)
-    {
-     /*   $accommodations = new Accommodation;
-		$accommodation = $this->getDoctrine()
-			->getManager()
-            ->getRepository('AALPBookingBundle:Accommodation')
-            ->find($id)
-			;
-        if (null === $accommodation) {
-          throw new NotFoundHttpException("Le logement d'id ".$id." n'existe pas.");
-        }
-    // On crée un formulaire vide, qui ne contiendra que le champ CSRF
-    // Cela permet de protéger la suppression d'annonce contre cette faille
-    $form = $this->get('form.factory')->create();
-
-    if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
-      $em->remove($accommodation);
-      $em->flush();
-
-      $request->getSession()->getFlashBag()->add('notice', "Le logement a bien été supprimé.");
-
-      return $this->redirectToRoute('AALP_accommodation_view');
-    }
-    
-    return $this->render('AALPBookingBundle:Accommodation:delete.html.twig', array(
-      'advert' => $advert,
-      'form'   => $form->createView(),
-    ));*/
+		return $this->render('AALPBookingBundle:Accommodation:delete.html.twig', array(
+		  'accommodation' => $accommodation,
+		  'form'   => $form->createView(),
+		));
     }
 	
 }

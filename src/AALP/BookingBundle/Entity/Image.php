@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Image
 {
   /**
-   * @ORM\ManyToOne(targetEntity="AALP\BookingBundle\Entity\Accommodation", inversedBy="images")
+   * @ORM\ManyToOne(targetEntity="AALP\BookingBundle\Entity\Accommodation", inversedBy="images", cascade={"persist"})
    * @ORM\JoinColumn(nullable=false)
    */
   private $accommodation;
@@ -92,13 +92,14 @@ class Image
         return $this->alt;
     }
 
-      /**
+   /**
    * @param Accommodation $accommodation
    */
   public function setAccommodation(Accommodation $accommodation)
   {
-    $this->advert = $accommodation;
+    $this->accommodation = $accommodation;
   }
+  
   /**
    * @return Accommodation
    */

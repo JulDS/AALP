@@ -1,14 +1,14 @@
 {# src/AALP/BookingBundle/Resources/views/Accommodation/form.html.twig #}
-<h3>Formulaire d'annonce</h3>
+<h3>Formulaire de logement</h3>
 
 {# Le formulaire reste globalement le même,
    On ne rajoute que le champ image et le lien pour en ajouter #}
 <div class="well">
   {# ... #}
-   {{ form(form) }}
-{#   {{ form_row(form.images) }}
-  <a href="#" id="add_image" class="btn btn-default">Ajouter une image</a> #}
-  
+    {{ form(form) }}
+    
+    <a href="#" id="add_image" class="btn btn-default">Ajouter une image</a>
+
   {# ... #}
 </div>
 
@@ -37,7 +37,7 @@
     if (index == 0) {
       addImage($container);
     } else {
-      // S'il existe déjà des catégories, on ajoute un lien de suppression pour chacune d'entre elles
+      // S'il existe déjà des images, on ajoute un lien de suppression pour chacune d'entre elles
       $container.children('div').each(function() {
         addDeleteLink($(this));
       });
