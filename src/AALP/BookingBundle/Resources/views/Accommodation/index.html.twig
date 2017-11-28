@@ -18,16 +18,17 @@
   <table class="table">
 	<thead>
 		<tr>
+			<th></th>
 			<th>Id</th>
 			<th>Référence</th>
-			<th>Nom du logement</th>
+			<th>Nom du</br>logement</th>
 			<th>Description</th>
-			<th>Nombre de pièces</th>
+			<th>Nombre</br>de pièces</th>
 			<th>Version</th>
 			<th>Date de début</th>
 			<th>Date de fin</th>
 			<th>Site</th>
-			<th>Logement mère</th>
+
 			<th>Actions</th>
 		</tr>
 	</thead>
@@ -35,6 +36,11 @@
 	<tbody>
 	{% for accommodation in listAccommodations %}
       <tr>
+		<td>
+			{% if accommodation.parent == 1 %}
+				<i class="material-icons">arrow_drop_down</i>
+			{% endif %}
+		</td>
 		<td><a href="{{ path('AALP_accommodation_view', {'id': accommodation.id}) }}">{{ accommodation.id }}</a></td>
 		<td>{{ accommodation.reference }}</td>
 		<td>{{ accommodation.name }}</td>
@@ -44,12 +50,12 @@
 		<td>{{ accommodation.start|date('d/m/Y') }}</td>
 		<td>{{ accommodation.end|date('d/m/Y') }}</td>
 		<td>{{ accommodation.site }}</td>
-		<td>{{ accommodation.parent }}</td>
+
 
 		<td>
-			<a href="{{ path('AALP_accommodation_edit', {'id': accommodation.id}) }}">Modifier</a>
-			|
-			<a href="{{ path('AALP_accommodation_delete', {'id': accommodation.id}) }}">Supprimer</a>
+			<a href="{{ path('AALP_accommodation_edit', {'id': accommodation.id}) }}"><i class="material-icons">edit</i></a>
+			<i class="material-icons">view_stream</i>
+			<a href="{{ path('AALP_accommodation_delete', {'id': accommodation.id}) }}"><i class="material-icons">delete</i></a>
 		</td>
 
       </tr>
