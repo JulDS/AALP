@@ -9,9 +9,7 @@
   <title>{% block title %}AALP{% endblock %}</title>
 
   {% block stylesheets %}
-
-    {#<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">#}
-	<link href="../../bootstrap/css/bootstrap.css" rel="stylesheet">
+	<link href="{{ asset('bundles/aalpbooking/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   {% endblock %}
 </head>

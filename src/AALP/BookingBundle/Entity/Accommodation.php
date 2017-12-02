@@ -41,6 +41,15 @@ class Accommodation
      * @ORM\Column(name="parent", type="boolean")
      */
     private $parent;
+	
+	/**
+     * @var int
+     *
+     * @ORM\Column(name="idparent", type="integer")
+	 * @ORM\ManyToOne(targetEntity="OC\PlatformBundle\Entity\Advert")
+     * @ORM\IdParent
+     */
+    //private $idparent;TODO : à finaliser
 
     /**
      * @var bool
